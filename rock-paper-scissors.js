@@ -18,8 +18,13 @@ function getComputerChoice () {
 //console.log(getComputerChoice());
 
 function getHumanChoice (){
-    let option = prompt("Choose between Rock, Paper or Scissors.");
-    return option.toLowerCase();
+    let option = prompt("Choose between Rock, Paper or Scissors.").toLowerCase();
+    if (option === "rock" || option === "paper" || option === "scissors") {
+        return option;
+    } else {
+        option = prompt("Try it again! Choose between Rock, Paper or Scissors.");
+        return option;
+    }
 }
 
 //console.log(getHumanChoice());
@@ -36,7 +41,53 @@ function playRound (humanChoice, computerChoice) {
     }
 }
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
+//playRound (humanSelection, computerSelection);
 
-playRound (humanSelection, computerSelection);
+function playGame () {
+
+    let humanSelection = getHumanChoice();
+    let computerSelection = getComputerChoice();
+    playRound (humanSelection, computerSelection);
+
+    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
+
+    humanSelection = getHumanChoice();
+    computerSelection = getComputerChoice();
+    playRound (humanSelection, computerSelection);
+
+    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
+
+    humanSelection = getHumanChoice();
+    computerSelection = getComputerChoice();
+    playRound (humanSelection, computerSelection);
+
+    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
+
+    humanSelection = getHumanChoice();
+    computerSelection = getComputerChoice();
+    playRound (humanSelection, computerSelection);
+
+    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
+
+    humanSelection = getHumanChoice();
+    computerSelection = getComputerChoice();
+    playRound (humanSelection, computerSelection);
+
+    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
+
+    if (humanScore > computerScore){
+
+        return console.log(`You have won the game! You master rock, paper and scissors.`);
+
+    } else if (computerScore > humanScore) {
+
+        return console.log(`You have lost the game! Try it again...`);
+
+    } else {
+
+        return console.log(`Wow, you've tied with the computer! At least the AI ​​won't come after you...`);
+
+    }
+}
+
+playGame();
