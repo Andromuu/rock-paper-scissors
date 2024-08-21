@@ -1,9 +1,16 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const buttons = document.querySelectorAll("button");
 const rock = document.getElementById("rock");
 const paper = document.getElementById("paper");
 const scissors = document.getElementById("scissors");
+const div = document.getElementById("container");
+const winner = document.createElement("p");
+const score = document.createElement("p");
+
+div.appendChild(winner);
+div.appendChild(score);
 
 function getComputerChoice () {
     let number = Math.round(Math.random() * 2 );
@@ -20,8 +27,7 @@ function getComputerChoice () {
 }
 
 function getHumanChoice (id){
-    let option = id;
-    switch (option) {
+    switch (id) {
         case "rock":
             return "rock";
             break;
@@ -34,15 +40,32 @@ function getHumanChoice (id){
     } 
 }
 
+function disableButtons (){
+    buttons.forEach(item => {
+        item.disabled = true;
+    });
+}
+
 function playRound (humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        console.log("We have a tie!");
+        winner.innerText = "We have a tie!";
+        score.innerText = `Human: ${humanScore} | Computer: ${computerScore}`;
     } else if (humanChoice === "rock" && computerChoice === "scissors" || humanChoice === "scissors" && computerChoice === "paper" || humanChoice === "paper" && computerChoice === "rock") {
-        console.log(`You have won this round! ${humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1)} beats ${computerChoice}.`);
+        winner.innerText =  `You have won this round! ${humanChoice.charAt(0).toUpperCase() + humanChoice.slice(1)} beats ${computerChoice}.`;
         humanScore++;
+        score.innerText = `Human: ${humanScore} | Computer: ${computerScore}`;
+        if (humanScore == 5){
+            winner.innerText = "You have beaten the computer! Refresh the page to start a new round.";
+            disableButtons();
+        }
     } else {
-        console.log(`You have lost this round! ${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)} beats ${humanChoice}.`);
+        winner.innerText = `You have lost this round! ${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)} beats ${humanChoice}.`;
         computerScore++;
+        score.innerText = `Human: ${humanScore} | Computer: ${computerScore}`;
+        if (computerScore == 5){
+            winner.innerText = "You have lost against the computer! Refresh the page to start a new round.";
+            disableButtons();
+        }
     }
 }
 
