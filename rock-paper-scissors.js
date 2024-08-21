@@ -1,6 +1,10 @@
 let humanScore = 0;
 let computerScore = 0;
 
+const rock = document.getElementById("rock");
+const paper = document.getElementById("paper");
+const scissors = document.getElementById("scissors");
+
 function getComputerChoice () {
     let number = Math.round(Math.random() * 2 );
     switch (number) {
@@ -15,19 +19,20 @@ function getComputerChoice () {
     }
 }
 
-//console.log(getComputerChoice());
-
-function getHumanChoice (){
-    let option = prompt("Choose between Rock, Paper or Scissors.").toLowerCase();
-    if (option === "rock" || option === "paper" || option === "scissors") {
-        return option;
-    } else {
-        option = prompt("Try it again! Choose between Rock, Paper or Scissors.");
-        return option;
-    }
+function getHumanChoice (id){
+    let option = id;
+    switch (option) {
+        case "rock":
+            return "rock";
+            break;
+        case "paper":
+            return "paper";
+            break;
+        case "scissors":
+            return "scissors";
+            break;
+    } 
 }
-
-//console.log(getHumanChoice());
 
 function playRound (humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
@@ -41,53 +46,6 @@ function playRound (humanChoice, computerChoice) {
     }
 }
 
-//playRound (humanSelection, computerSelection);
-
-function playGame () {
-
-    let humanSelection = getHumanChoice();
-    let computerSelection = getComputerChoice();
-    playRound (humanSelection, computerSelection);
-
-    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
-
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound (humanSelection, computerSelection);
-
-    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
-
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound (humanSelection, computerSelection);
-
-    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
-
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound (humanSelection, computerSelection);
-
-    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
-
-    humanSelection = getHumanChoice();
-    computerSelection = getComputerChoice();
-    playRound (humanSelection, computerSelection);
-
-    console.log(`Player: ${humanScore} | Computer: ${computerScore}`);
-
-    if (humanScore > computerScore){
-
-        return console.log(`You have won the game! You master rock, paper and scissors.`);
-
-    } else if (computerScore > humanScore) {
-
-        return console.log(`You have lost the game! Try it again...`);
-
-    } else {
-
-        return console.log(`Wow, you've tied with the computer! At least the AI ​​won't come after you...`);
-
-    }
-}
-
-playGame();
+rock.addEventListener("click", () => {playRound(getHumanChoice(rock.id), getComputerChoice())});
+paper.addEventListener("click", () => {playRound(getHumanChoice(paper.id), getComputerChoice())});
+scissors.addEventListener("click", () => {playRound(getHumanChoice(scissors.id), getComputerChoice())});
