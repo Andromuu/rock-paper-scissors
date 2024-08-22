@@ -8,6 +8,10 @@ const scissors = document.getElementById("scissors");
 const div = document.getElementById("container");
 const winner = document.createElement("p");
 const score = document.createElement("p");
+const bReset = document.createElement("button");
+
+bReset.setAttribute("id", "resetGame");
+bReset.textContent = "Reset Game";
 
 div.appendChild(winner);
 div.appendChild(score);
@@ -46,6 +50,12 @@ function disableButtons (){
     });
 }
 
+function resetGame (){
+    location.reload();
+}
+
+bReset.addEventListener("click", () => {resetGame()});
+
 function playRound (humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
         winner.innerText = "We have a tie!";
@@ -55,16 +65,18 @@ function playRound (humanChoice, computerChoice) {
         humanScore++;
         score.innerText = `Human: ${humanScore} | Computer: ${computerScore}`;
         if (humanScore == 5){
-            winner.innerText = "You have beaten the computer! Refresh the page to start a new round.";
+            winner.innerText = "You have beaten the computer!";
             disableButtons();
+            div.appendChild(bReset);
         }
     } else {
         winner.innerText = `You have lost this round! ${computerChoice.charAt(0).toUpperCase() + computerChoice.slice(1)} beats ${humanChoice}.`;
         computerScore++;
         score.innerText = `Human: ${humanScore} | Computer: ${computerScore}`;
         if (computerScore == 5){
-            winner.innerText = "You have lost against the computer! Refresh the page to start a new round.";
+            winner.innerText = "You have lost against the computer!";
             disableButtons();
+            div.appendChild(bReset);
         }
     }
 }
